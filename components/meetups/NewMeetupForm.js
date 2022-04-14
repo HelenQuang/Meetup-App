@@ -52,7 +52,7 @@ function NewMeetupForm({ onAddMeetup }) {
           ></textarea>
         </div>
         <div className={classes.actions}>
-          <button>Add Meetup</button>
+          <button>ADD MEETUP</button>
         </div>
       </form>
     </Card>
