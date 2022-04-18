@@ -1,57 +1,64 @@
 import MeetupDetail from "../../components/meetups/MeetupDetail";
+import { MongoClient, ObjectId } from "mongodb";
+import { Fragment } from "react";
+import Head from "next/head";
 
-const MeetupDetails = () => {
+const MeetupDetails = (props) => {
   return (
-    <MeetupDetail
-      image="https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80"
-      title="Luxury Resort"
-      address="12 Wall Street, Hawaii"
-      description="This is a beautiful place"
-    />
+    <Fragment>
+      <Head>
+        <title>{props.meetupData.title}</title>
+        <meta name="description" content={props.meetupData.description} />
+      </Head>
+      <MeetupDetail
+        image={props.meetupData.image}
+        title={props.meetupData.title}
+        address={props.meetupData.address}
+        description={props.meetupData.description}
+      />
+    </Fragment>
   );
 };
 
 export async function getStaticPaths() {
+  const client = await MongoClient.connect(
+    "mongodb+srv://helen2:hAf3r44hax6wdXyU@cluster0.zg8vw.mongodb.net/meetups?retryWrites=true&w=majority"
+  );
+  const db = client.db();
+  const meetupsCollection = db.collection("meetups");
+  const meetups = await meetupsCollection.find({}, { _id: 1 }).toArray();
+  client.close();
+
   return {
-    fallback: false,
-    paths: [
-      {
-        params: {
-          meetupId: "m1",
-        },
+    fallback: "blocking",
+    paths: meetups.map((meetup) => ({
+      params: {
+        meetupId: meetup._id.toString(),
       },
-      {
-        params: {
-          meetupId: "m2",
-        },
-      },
-      {
-        params: {
-          meetupId: "m3",
-        },
-      },
-      {
-        params: {
-          meetupId: "m4",
-        },
-      },
-    ],
+    })),
   };
 }
 
 export async function getStaticProps(context) {
   const meetupId = context.params.meetupId;
-  console.log(meetupId);
+  const client = await MongoClient.connect(
+    "mongodb+srv://helen2:hAf3r44hax6wdXyU@cluster0.zg8vw.mongodb.net/meetups?retryWrites=true&w=majority"
+  );
+  const db = client.db();
+  const meetupsCollection = db.collection("meetups");
+  const selectedMeetup = await meetupsCollection.findOne({
+    _id: ObjectId(meetupId),
+  });
+  client.close();
 
   return {
     props: {
       meetupData: {
-        id: meetupId,
-        image:
-          "https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
-        title: "Luxury Resort",
-        address: "12 Wall Street",
-        description: "This is a beautiful place",
+        id: selectedMeetup._id.toString(),
+        title: selectedMeetup.title,
+        address: selectedMeetup.address,
+        image: selectedMeetup.image,
+        description: selectedMeetup.description,
       },
     },
   };
