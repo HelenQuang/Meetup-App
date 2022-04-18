@@ -8,3 +8,6 @@
 - Send request to the same server but different path of the server (Internal API from API Routes)
 - Get data from MongoDB database
 - Add Head Metadata from NextJS to the head section for SEO
+
+## DEMO Link: 
+https://meetups-app-helen.netlify.app/
