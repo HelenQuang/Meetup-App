@@ -1,7 +1,7 @@
 import MeetupItem from "./MeetupItem";
 import classes from "./MeetupList.module.css";
 
-function MeetupList({ meetups }) {
+const MeetupList = ({ meetups }) => {
   return (
     <ul className={classes.list}>
       {meetups.map((meetup) => (
@@ -15,6 +15,6 @@ function MeetupList({ meetups }) {
       ))}
     </ul>
   );
-}
+};
 
 export default MeetupList;

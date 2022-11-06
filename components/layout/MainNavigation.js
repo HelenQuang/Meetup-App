@@ -1,7 +1,7 @@
 import classes from "./MainNavigation.module.css";
 import Link from "next/link";
 
-function MainNavigation() {
+const MainNavigation = () => {
   return (
     <header className={classes.header}>
       <Link href="/">Meetups App</Link>
@@ -18,6 +18,6 @@ function MainNavigation() {
       </nav>
     </header>
   );
-}
+};
 
 export default MainNavigation;

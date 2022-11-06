@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import { Fragment } from "react";
 import Head from "next/head";
 
+//our-domain/new-meetup
 const NewMeetupPage = () => {
   const router = useRouter();
 
@@ -27,7 +28,7 @@ const NewMeetupPage = () => {
           content="Add your own meetups and create amazing networking opportunities"
         />
       </Head>
-      <NewMeetupForm onAddMeetup={onAddMeetupHandler} />;
+      <NewMeetupForm onAddMeetup={onAddMeetupHandler} />
     </Fragment>
   );
 };

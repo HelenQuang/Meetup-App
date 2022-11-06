@@ -18,8 +18,7 @@ const HomePage = (props) => {
   );
 };
 
-export async function getStaticProps() {
-  //fetch data from MongoDB
+export const getStaticProps = async () => {
   const client = await MongoClient.connect(
     "mongodb+srv://helen2:hAf3r44hax6wdXyU@cluster0.zg8vw.mongodb.net/meetups?retryWrites=true&w=majority"
   );
@@ -39,6 +38,6 @@ export async function getStaticProps() {
     },
     revalidate: 1,
   };
-}
+};
 
 export default HomePage;

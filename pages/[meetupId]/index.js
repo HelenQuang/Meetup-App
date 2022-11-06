@@ -3,6 +3,7 @@ import { MongoClient, ObjectId } from "mongodb";
 import { Fragment } from "react";
 import Head from "next/head";
 
+//our-domain/meetupId
 const MeetupDetails = (props) => {
   return (
     <Fragment>
@@ -20,7 +21,7 @@ const MeetupDetails = (props) => {
   );
 };
 
-export async function getStaticPaths() {
+export const getStaticPaths = async () => {
   const client = await MongoClient.connect(
     "mongodb+srv://helen2:hAf3r44hax6wdXyU@cluster0.zg8vw.mongodb.net/meetups?retryWrites=true&w=majority"
   );
@@ -37,9 +38,9 @@ export async function getStaticPaths() {
       },
     })),
   };
-}
+};
 
-export async function getStaticProps(context) {
+export const getStaticProps = async (context) => {
   const meetupId = context.params.meetupId;
   const client = await MongoClient.connect(
     "mongodb+srv://helen2:hAf3r44hax6wdXyU@cluster0.zg8vw.mongodb.net/meetups?retryWrites=true&w=majority"
@@ -62,6 +63,6 @@ export async function getStaticProps(context) {
       },
     },
   };
-}
+};
 
 export default MeetupDetails;
