@@ -9,5 +9,6 @@
 - Get data from MongoDB database
 - Add Head Metadata from NextJS to the head section for SEO
 
-## DEMO Link: 
-https://meetups-app-helen.netlify.app/
+## DEMO Link:
+
+https://meetup-app-liard.vercel.app/
